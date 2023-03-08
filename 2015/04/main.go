@@ -5,7 +5,7 @@ import (
 	_ "embed"
 	"fmt"
 	"io"
-  "strconv"
+	"strconv"
 )
 
 //go:embed input.txt
@@ -18,40 +18,40 @@ func main() {
 
 func part1(input string) int {
 	match := false
-  num := 0
+	num := 0
 
 	for match != true {
 		h := md5.New()
 		io.WriteString(h, input)
 		io.WriteString(h, strconv.Itoa(num))
-    sum := fmt.Sprintf("%x", h.Sum(nil))
-    
-    if sum[:5] == "00000" {
-      return num
-    }
+		sum := fmt.Sprintf("%x", h.Sum(nil))
 
-    num++
+		if sum[:5] == "00000" {
+			return num
+		}
+
+		num++
 	}
-  
+
 	return -1
 }
 
 func part2(input string) int {
 	match := false
-  num := 0
+	num := 0
 
 	for match != true {
 		h := md5.New()
 		io.WriteString(h, input)
 		io.WriteString(h, strconv.Itoa(num))
-    sum := fmt.Sprintf("%x", h.Sum(nil))
-    
-    if sum[:6] == "000000" {
-      return num
-    }
+		sum := fmt.Sprintf("%x", h.Sum(nil))
 
-    num++
+		if sum[:6] == "000000" {
+			return num
+		}
+
+		num++
 	}
-  
+
 	return -1
 }
