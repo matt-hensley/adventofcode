@@ -86,7 +86,60 @@ func part1(input string) int {
 }
 
 func part2(input string) int {
-	return -1
+	commands := map[Op]Callback{
+		Toggle: func(x int) int { return x + 2 },
+		On:     func(x int) int { return x + 1 },
+		Off: func(x int) int {
+			if x == 0 {
+				return 0
+			}
+			return x - 1
+		},
+	}
+
+	lines := strings.Split(input, "\n")
+	var lights [1000][1000]int
+
+	for _, line := range lines {
+		parts := strings.Split(line, " ")
+		var op Op
+		var start, stop Point
+
+		switch parts[0] {
+		case "toggle":
+			op = Toggle
+			start = string_to_point(parts[1])
+			stop = string_to_point(parts[3])
+		case "turn":
+			switch parts[1] {
+			case "on":
+				op = On
+			case "off":
+				op = Off
+			}
+
+			start = string_to_point(parts[2])
+			stop = string_to_point(parts[4])
+		default:
+			panic("Parsing failure")
+		}
+
+		for x := start.x; x <= stop.x; x++ {
+			for y := start.y; y <= stop.y; y++ {
+				lights[x][y] = commands[op](lights[x][y])
+			}
+		}
+	}
+
+	count := 0
+
+	for i := 0; i < 1000; i++ {
+		for j := 0; j < 1000; j++ {
+			count += lights[i][j]
+		}
+	}
+
+	return count
 }
 
 func string_to_point(pair string) Point {
