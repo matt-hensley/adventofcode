@@ -40,49 +40,7 @@ func part1(input string) int {
 		Off: func(_ int) int { return 0 },
 	}
 
-	lines := strings.Split(input, "\n")
-	var lights [1000][1000]int
-
-	for _, line := range lines {
-		parts := strings.Split(line, " ")
-		var op Op
-		var start, stop Point
-
-		switch parts[0] {
-		case "toggle":
-			op = Toggle
-			start = string_to_point(parts[1])
-			stop = string_to_point(parts[3])
-		case "turn":
-			switch parts[1] {
-			case "on":
-				op = On
-			case "off":
-				op = Off
-			}
-
-			start = string_to_point(parts[2])
-			stop = string_to_point(parts[4])
-		default:
-			panic("Parsing failure")
-		}
-
-		for x := start.x; x <= stop.x; x++ {
-			for y := start.y; y <= stop.y; y++ {
-				lights[x][y] = commands[op](lights[x][y])
-			}
-		}
-	}
-
-	count := 0
-
-	for i := 0; i < 1000; i++ {
-		for j := 0; j < 1000; j++ {
-			count += lights[i][j]
-		}
-	}
-
-	return count
+	return solve(input, commands)
 }
 
 func part2(input string) int {
@@ -97,6 +55,10 @@ func part2(input string) int {
 		},
 	}
 
+  return solve(input, commands)
+}
+
+func solve(input string, commands map[Op]Callback) int {
 	lines := strings.Split(input, "\n")
 	var lights [1000][1000]int
 
