@@ -12,14 +12,29 @@ import (
 var input string
 
 func main() {
-	fmt.Println("Part 1: ", part1(input, "d"))
+	fmt.Println("Part 1: ", part1(input, "a"))
 	fmt.Println("Part 2: ", part2(input))
 }
 
 func part1(input string, target string) int {
+	return solve(input, target, nil)
+}
+
+func part2(input string) int {
+	a := solve(input, "a", nil)
+	return solve(input, "a", map[string]int{"b": a})
+}
+
+func solve(input string, target string, outputsOverride map[string]int) int {
 	lines := strings.Split(input, "\n")
 	ops := map[string][]string{}
 	outputs := map[string]int{}
+
+	if outputsOverride != nil {
+		for k, v := range outputsOverride {
+			outputs[k] = v
+		}
+	}
 
 	for _, line := range lines {
 		// example: y RSHIFT 2 -> g
@@ -69,8 +84,4 @@ func part1(input string, target string) int {
 	}
 
 	return run(target)
-}
-
-func part2(input string) int {
-	return -1
 }
