@@ -3,6 +3,7 @@ package main
 import (
 	_ "embed"
 	"fmt"
+	"math"
 	"strconv"
 	"strings"
 )
@@ -47,7 +48,7 @@ func part1(input string, target string) int {
 			outputs[key] = run(op[0])
 		} else if len(op) == 2 {
 			// NOT
-			outputs[key] = ^run(op[1])
+			outputs[key] = math.MaxUint16 ^ run(op[1])
 		} else if len(op) == 3 {
 			// AND, OR, LSHIFT, RSHIFT
 			switch op[1] {
