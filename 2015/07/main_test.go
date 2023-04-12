@@ -35,17 +35,18 @@ func Test_part1(t *testing.T) {
 	}
 }
 
-func Test_part2(t *testing.T) {
-	test_cases := []TestCase{
-		{"", -1},
-	}
+// no test case provided for part 2
+// func Test_part2(t *testing.T) {
+// 	test_cases := []TestCase{
+// 		{"", -1},
+// 	}
 
-	for _, test_case := range test_cases {
-		want := test_case.want
-		got := part2(test_case.input)
+// 	for _, test_case := range test_cases {
+// 		want := test_case.want
+// 		got := part2(test_case.input)
 
-		if got != want {
-			t.Errorf("part2_sample %s = %d; want %d", test_case.input, got, want)
-		}
-	}
-}
+// 		if got != want {
+// 			t.Errorf("part2_sample %s = %d; want %d", test_case.input, got, want)
+// 		}
+// 	}
+// }
